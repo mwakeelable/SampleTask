@@ -3,10 +3,10 @@ package com.etisalat.sampletask.views;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,17 +60,17 @@ public class MenuFragment extends BaseFragment implements MenuView {
         } else {
             hideProgress();
         }
-
     }
 
     @Override
     public void getFoodList(List<Item> itemList) {
         adapter = new MenuAdapter(getActivity(), itemList);
         menuList.setAdapter(adapter);
-        for (Item item : itemList) {
-            Log.d("RETROFIT", item.getId() + "\n"
-                    + " - Alpha2:  " + item.getName() + " \n"
-                    + " - Alpha3: " + item.getCost());
-        }
+    }
+
+    @Override
+    public void showError(String message) {
+        Snackbar snackbar = Snackbar.make(view.findViewById(R.id.menuContainer), "Welcome to AndroidHive", Snackbar.LENGTH_INDEFINITE);
+        snackbar.show();
     }
 }

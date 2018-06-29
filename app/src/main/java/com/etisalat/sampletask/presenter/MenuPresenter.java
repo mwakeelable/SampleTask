@@ -46,8 +46,10 @@ public class MenuPresenter extends BasePresenter {
             public void onFailure(Call<Menu> call, Throwable t) {
                 menuView.showProgress(false);
                 try {
+                    menuView.showError(t.getMessage());
                     throw new InterruptedException("Something went wrong!");
                 } catch (InterruptedException e) {
+                    menuView.showError(e.getMessage());
                     e.printStackTrace();
                 }
             }

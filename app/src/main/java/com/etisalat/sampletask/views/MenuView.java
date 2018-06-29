@@ -1,7 +1,6 @@
 package com.etisalat.sampletask.views;
 
 import com.etisalat.sampletask.model.Item;
-import com.etisalat.sampletask.model.Menu;
 
 import java.util.List;
 
@@ -13,4 +12,6 @@ public interface MenuView {
     void showProgress(boolean show);
 
     void getFoodList(List<Item> itemList);
+
+    void showError(String message);
 }
