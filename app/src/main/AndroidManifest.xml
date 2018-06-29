@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".views.FoodsActivity"
+            android:name=".views.MenuActivity"
             android:label="@string/title_activity_foods"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">SampleTask</string>
     <string name="pleasewait">Please Wait</string>
-    <string name="title_activity_foods">FoodsActivity</string>
+    <string name="title_activity_foods">Menu</string>
 </resources>
