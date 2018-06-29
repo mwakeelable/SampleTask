@@ -19,7 +19,11 @@ public class FoodsActivity extends BaseActivity {
         setContentView(R.layout.activity_foods);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.foodsContainer, new FoodsFragment())
+                // .add(R.id.frame, new CreateGuestAccountFragment())
+                .commit();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

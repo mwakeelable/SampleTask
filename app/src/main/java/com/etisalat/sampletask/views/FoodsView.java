@@ -1,5 +1,6 @@
 package com.etisalat.sampletask.views;
 
+import com.etisalat.sampletask.model.Item;
 import com.etisalat.sampletask.model.Menu;
 
 import java.util.List;
@@ -10,5 +11,5 @@ import java.util.List;
 
 public interface FoodsView {
 
-    void getFoodList(List<Menu> menuList);
+    void getFoodList(List<Item> itemList);
 }
