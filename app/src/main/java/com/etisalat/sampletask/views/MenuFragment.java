@@ -1,5 +1,8 @@
 package com.etisalat.sampletask.views;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +17,7 @@ import android.view.ViewGroup;
 import com.etisalat.sampletask.R;
 import com.etisalat.sampletask.bases.BaseFragment;
 import com.etisalat.sampletask.bases.BasePresenter;
+import com.etisalat.sampletask.database.ItemViewModel;
 import com.etisalat.sampletask.model.Item;
 import com.etisalat.sampletask.presenter.MenuPresenter;
 
@@ -28,14 +32,42 @@ import java.util.List;
 public class MenuFragment extends BaseFragment implements MenuView {
     MenuPresenter menuPresenter;
     View view;
+    private ItemViewModel itemViewModel;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_menu, container, false);
-        menuPresenter.getMenu();
         initViews(view);
+        itemViewModel = ViewModelProviders.of(this).get(ItemViewModel.class);
+        getAllItems();
         return view;
+    }
+
+    public void getAllItems() {
+        LiveData<List<Item>> allItems = itemViewModel.getAllItems();
+        observerItemListResults(allItems);
+    }
+
+    private void observerItemListResults(LiveData<List<Item>> itemsLive) {
+        itemsLive.observe(this, new Observer<List<Item>>() {
+            @Override
+            public void onChanged(@Nullable List<Item> items) {
+                if (items == null) {
+                    return;
+                }
+                if (items.size() > 0) {
+                    adapter = new MenuAdapter(getActivity(), items);
+                    menuList.setAdapter(adapter);
+                } else {
+                    menuPresenter.getMenu();
+                }
+            }
+        });
+    }
+
+    public void addItem(Item item) {
+        itemViewModel.addItem(item);
     }
 
     RecyclerView menuList;
@@ -74,6 +106,11 @@ public class MenuFragment extends BaseFragment implements MenuView {
                 return s1.compareToIgnoreCase(s2);
             }
         });
+
+        for (Item item : itemList) {
+            addItem(item);
+        }
+
         adapter = new MenuAdapter(getActivity(), itemList);
         menuList.setAdapter(adapter);
     }

@@ -25,7 +25,7 @@ public class ApiClient {
         return retrofit;
     }
 
-    public static ApiService getWebServices() {
+    public ApiService getWebServices() {
         if (service == null) {
             service = getRetrofit().create(ApiService.class);
         } else {
