@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import com.etisalat.sampletask.R;
 import com.etisalat.sampletask.bases.BaseActivity;
@@ -15,6 +16,7 @@ import java.util.List;
 
 public class MenuActivity extends BaseActivity implements MenuView {
     private MenuPresenter presenter;
+    TextView txtTimeStamp, txtAppName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,9 @@ public class MenuActivity extends BaseActivity implements MenuView {
                 .add(R.id.foodsContainer, new MenuFragment())
                 .commit();
         FloatingActionButton fab = findViewById(R.id.fab);
+        txtTimeStamp = findViewById(R.id.txtTime);
+        txtAppName = findViewById(R.id.txtAppName);
+        txtAppName.setText(getResources().getString(R.string.app_name));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

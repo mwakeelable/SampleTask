@@ -21,6 +21,8 @@ import com.etisalat.sampletask.database.ItemViewModel;
 import com.etisalat.sampletask.model.Item;
 import com.etisalat.sampletask.presenter.MenuPresenter;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -33,6 +35,12 @@ public class MenuFragment extends BaseFragment implements MenuView {
     MenuPresenter menuPresenter;
     View view;
     private ItemViewModel itemViewModel;
+    MenuActivity activity;
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        activity = (MenuActivity) getActivity();
+    }
 
     @Nullable
     @Override
@@ -59,6 +67,7 @@ public class MenuFragment extends BaseFragment implements MenuView {
                 if (items.size() > 0) {
                     adapter = new MenuAdapter(getActivity(), items);
                     menuList.setAdapter(adapter);
+                    activity.txtTimeStamp.setText("last update: " + items.get(0).getTimeStamp());
                 } else {
                     menuPresenter.getMenu();
                 }
@@ -98,6 +107,7 @@ public class MenuFragment extends BaseFragment implements MenuView {
 
     @Override
     public void getFoodList(List<Item> itemList) {
+        //Sort List
         Collections.sort(itemList, new Comparator<Item>() {
             @Override
             public int compare(Item item, Item t1) {
@@ -106,13 +116,22 @@ public class MenuFragment extends BaseFragment implements MenuView {
                 return s1.compareToIgnoreCase(s2);
             }
         });
-
+        //Add list in DB
         for (Item item : itemList) {
+            item.setTimeStamp(getTime());
             addItem(item);
         }
-
+        //set RecyclerView adapter with result
         adapter = new MenuAdapter(getActivity(), itemList);
         menuList.setAdapter(adapter);
+    }
+
+    //Get Current time for last update
+    private String getTime(){
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = df.format(c.getTime());
+        return formattedDate;
     }
 
     @Override

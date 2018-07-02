@@ -28,6 +28,8 @@ public class Item {
     @Element(name = "description")
     private String description;
 
+    private String timeStamp;
+
     public String getId() {
         return id;
     }
@@ -58,5 +60,13 @@ public class Item {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(String timeStamp) {
+        this.timeStamp = timeStamp;
     }
 }
