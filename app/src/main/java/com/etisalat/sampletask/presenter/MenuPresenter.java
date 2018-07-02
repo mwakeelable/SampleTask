@@ -49,7 +49,6 @@ public class MenuPresenter extends BasePresenter {
                     menuView.showError(t.getMessage());
                     throw new InterruptedException("Something went wrong!");
                 } catch (InterruptedException e) {
-                    menuView.showError(e.getMessage());
                     e.printStackTrace();
                 }
             }

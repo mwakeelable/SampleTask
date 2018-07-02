@@ -21,8 +21,6 @@ import com.etisalat.sampletask.database.ItemViewModel;
 import com.etisalat.sampletask.model.Item;
 import com.etisalat.sampletask.presenter.MenuPresenter;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -44,7 +42,8 @@ public class MenuFragment extends BaseFragment implements MenuView {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView
+            (@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_menu, container, false);
         initViews(view);
         itemViewModel = ViewModelProviders.of(this).get(ItemViewModel.class);
@@ -118,7 +117,7 @@ public class MenuFragment extends BaseFragment implements MenuView {
         });
         //Add list in DB
         for (Item item : itemList) {
-            item.setTimeStamp(getTime());
+            item.setTimeStamp(activity.getTime());
             addItem(item);
         }
         //set RecyclerView adapter with result
@@ -126,17 +125,13 @@ public class MenuFragment extends BaseFragment implements MenuView {
         menuList.setAdapter(adapter);
     }
 
-    //Get Current time for last update
-    private String getTime(){
-        Calendar c = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String formattedDate = df.format(c.getTime());
-        return formattedDate;
-    }
 
     @Override
     public void showError(String message) {
-        Snackbar snackbar = Snackbar.make(view.findViewById(R.id.menuContainer), "Welcome to AndroidHive", Snackbar.LENGTH_INDEFINITE);
+        Snackbar snackbar = Snackbar.make(
+                view.findViewById(R.id.menuContainer),
+                message,
+                Snackbar.LENGTH_INDEFINITE);
         snackbar.show();
     }
 }
