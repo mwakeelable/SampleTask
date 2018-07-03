@@ -5,7 +5,7 @@ import com.etisalat.sampletask.bases.BasePresenterListener;
 import com.etisalat.sampletask.model.Item;
 import com.etisalat.sampletask.model.Menu;
 import com.etisalat.sampletask.network.ApiClient;
-import com.etisalat.sampletask.views.MenuView;
+import com.etisalat.sampletask.views.menu.MenuView;
 
 import java.util.List;
 

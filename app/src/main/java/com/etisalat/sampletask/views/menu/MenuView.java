@@ -1,4 +1,4 @@
-package com.etisalat.sampletask.views;
+package com.etisalat.sampletask.views.menu;
 
 import com.etisalat.sampletask.model.Item;
 

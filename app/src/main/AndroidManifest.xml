@@ -3,6 +3,9 @@
     package="com.etisalat.sampletask">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+
 
     <application
         android:allowBackup="true"
@@ -12,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".views.MenuActivity"
+            android:name=".views.menu.MenuActivity"
             android:label="@string/title_activity_foods"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -21,6 +24,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".views.camera.CameraActivity"/>
     </application>
 
 </manifest>

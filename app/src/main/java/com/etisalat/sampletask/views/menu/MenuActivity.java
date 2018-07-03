@@ -1,11 +1,11 @@
-package com.etisalat.sampletask.views;
+package com.etisalat.sampletask.views.menu;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.TextView;
 
 import com.etisalat.sampletask.R;
@@ -14,6 +14,7 @@ import com.etisalat.sampletask.bases.BasePresenter;
 import com.etisalat.sampletask.database.ItemViewModel;
 import com.etisalat.sampletask.model.Item;
 import com.etisalat.sampletask.presenter.MenuPresenter;
+import com.etisalat.sampletask.views.camera.CameraActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -38,16 +39,18 @@ public class MenuActivity extends BaseActivity implements MenuView {
                 .beginTransaction()
                 .add(R.id.foodsContainer, menuFragment)
                 .commit();
-        FloatingActionButton fab = findViewById(R.id.fab);
+        FloatingActionButton refreshFab = findViewById(R.id.refreshFAB);
+        FloatingActionButton cameraFab = findViewById(R.id.cameraFAB);
         txtTimeStamp = findViewById(R.id.txtTime);
         txtAppName = findViewById(R.id.txtAppName);
         txtAppName.setText(getResources().getString(R.string.app_name));
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                presenter.getMenu();
-            }
-        });
+        refreshFab.setOnClickListener(view -> presenter.getMenu());
+        cameraFab.setOnClickListener(view -> openCameraActivity());
+    }
+
+    private void openCameraActivity() {
+        Intent cameraActivity = new Intent(MenuActivity.this, CameraActivity.class);
+        startActivity(cameraActivity);
     }
 
     @Override
@@ -95,7 +98,6 @@ public class MenuActivity extends BaseActivity implements MenuView {
         snackbar.show();
     }
 
-    //Get Current time for last update
     public String getTime() {
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

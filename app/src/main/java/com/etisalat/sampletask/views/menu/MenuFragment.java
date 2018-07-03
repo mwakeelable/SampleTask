@@ -1,4 +1,4 @@
-package com.etisalat.sampletask.views;
+package com.etisalat.sampletask.views.menu;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
