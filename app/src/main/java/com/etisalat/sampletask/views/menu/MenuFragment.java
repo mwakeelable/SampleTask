@@ -42,8 +42,7 @@ public class MenuFragment extends BaseFragment implements MenuView {
 
     @Nullable
     @Override
-    public View onCreateView
-            (@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_menu, container, false);
         initViews(view);
         itemViewModel = ViewModelProviders.of(this).get(ItemViewModel.class);
@@ -64,8 +63,7 @@ public class MenuFragment extends BaseFragment implements MenuView {
                     return;
                 }
                 if (items.size() > 0) {
-                    adapter = new MenuAdapter(getActivity(), items);
-                    menuList.setAdapter(adapter);
+                    showMenuList(items);
                     activity.txtTimeStamp.setText("last update: " + items.get(0).getTimeStamp());
                 } else {
                     menuPresenter.getMenu();
@@ -87,6 +85,12 @@ public class MenuFragment extends BaseFragment implements MenuView {
         mLayoutManager = new LinearLayoutManager(getActivity());
         menuList.setLayoutManager(mLayoutManager);
         menuList.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+    }
+
+    private void showMenuList(List<Item> itemList) {
+        //set RecyclerView adapter with result
+        adapter = new MenuAdapter(itemList);
+        menuList.setAdapter(adapter);
     }
 
     @Override
@@ -120,11 +124,9 @@ public class MenuFragment extends BaseFragment implements MenuView {
             item.setTimeStamp(activity.getTime());
             addItem(item);
         }
-        //set RecyclerView adapter with result
-        adapter = new MenuAdapter(getActivity(), itemList);
-        menuList.setAdapter(adapter);
-    }
 
+        showMenuList(itemList);
+    }
 
     @Override
     public void showError(String message) {

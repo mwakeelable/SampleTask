@@ -28,10 +28,6 @@ public class ItemRepository {
         menuDao.updateItem(item);
     }
 
-    public void deleteItem(Item item) {
-        menuDao.deleteItem(item);
-    }
-
     public LiveData<List<Item>> getAllItems() {
         return menuDao.getAllItems();
     }
